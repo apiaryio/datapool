@@ -1,2 +1,2 @@
-# datapool
-Library of miscellaneous reusable data models for API Blueprint
+# Data Pool
+Library of reusable data models for API Blueprint.
