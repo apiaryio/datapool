@@ -1,0 +1,55 @@
+# GeoJSON Geometry Objects
+
+This API Bluperint defines some of the [GeoJSON Geometry Objects](http://geojson.org/geojson-spec.html#geometry-objects).
+
+After transcluding this bluperint you can uses Geometry objects in your API Blueprint like so:
+
+```apib
+# GET /polygon
+- Response 200 (application/vnd.geo+json)
+    - Attributes (Polygon)
+```
+
+# Data Structures
+
+## Geometry (object)
+A geometry is a GeoJSON object where the type member's value is one of the following strings: "Point", "MultiPoint", "LineString", "MultiLineString", "Polygon", "MultiPolygon", or "GeometryCollection".
+
+<http://geojson.org/geojson-spec.html#geometry-objects>
+
+### Properties
+- type (string, required) - Type of the geometry.
+- coordinates (array, required) - The structure for the elements in this array is determined by the type of geometry.
+
+## Position (array, fixed)
+A single position.
+
+### Items
+- *0.0* (number, required) - X coordinate (easting / latitude)
+- *0.0* (number, required) - Y coordinate (northing / longitude)
+- *0.0* (number, optional) - Z coordinate (altitude)
+
+## Line String (Geometry)
+
+### Properties
+- type: LineString (string, fixed)
+- coordinates (array, required)
+    - (Position, required)
+    - (Position, required)
+    - (Position, optional)
+
+## LinearRing Coordinates (array)
+A LinearRing is closed LineString with 4 or more positions. The first and last positions are equivalent (they represent equivalent points). Though a LinearRing is not explicitly represented as a GeoJSON geometry type, it is referred to in the Polygon geometry type definition.
+
+### Items
+- (Position, required)
+- (Position, required)
+- (Position, required)
+- (Position, required)
+
+## Polygon (object)
+Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first element in the array represents the exterior ring. Any subsequent elements represent interior rings (or holes).
+
+### Properties
+- type: Polygon (string, fixed)
+- coordinates (array[LinearRing Coordinates], required) - an array of LinearRing coordinate arrays. For Polygons with multiple rings, the first must be the exterior ring and any others must be interior rings or holes.
